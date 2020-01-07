@@ -12,3 +12,11 @@
 */
 
 Route::get('/', 'HomeController@index');
+
+//Ruta normal usando controlador
+//Route::get('admin/permiso', 'Admin\PermissionController@index')->name('permiso');
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::get('permiso', 'PermissionController@index')->name('permiso');
+    Route::get('permiso/crear', 'PermissionController@create')->name('permiso-crear');
+});

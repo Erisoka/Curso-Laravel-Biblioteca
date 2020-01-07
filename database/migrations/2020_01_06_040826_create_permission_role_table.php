@@ -28,6 +28,9 @@ class CreatePermissionRoleTable extends Migration
             $table->foreign('role_id', 'fk_permission_role_roles')->references('id')->on('roles')
                 ->onDelete('restrict') 
                 ->onUpdate('restrict');
+
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_spanish_ci';
         });
     }
 

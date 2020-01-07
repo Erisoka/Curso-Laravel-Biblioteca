@@ -29,6 +29,9 @@ class CreateRoleUserTable extends Migration
             $table->foreign('user_id', 'fk_role_user_users')->references('id')->on('users')
                 ->onDelete('restrict') 
                 ->onUpdate('restrict');
+
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_spanish_ci';
         });
     }
 

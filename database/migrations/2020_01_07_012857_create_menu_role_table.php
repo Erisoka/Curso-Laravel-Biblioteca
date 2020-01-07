@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookUserTable extends Migration
+class CreateMenuRoleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,29 +13,24 @@ class CreateBookUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('book_user', function (Blueprint $table) {
+        Schema::create('menu_role', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->bigInteger('book_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('menu_id')->unsigned();
+            $table->bigInteger('role_id')->unsigned();
 
-            $table->date('fecha_prestamo');
-            $table->string('prestado_a', 100);
-            $table->boolean('estado');
-            $table->date('fecha_devolucion')->nullable();
-
-            $table->timestamps();
-
-            $table->foreign('book_id', 'fk_book_user_books')->references('id')->on('books')
+            $table->foreign('menu_id', 'fk_menu_role_menus')->references('id')->on('menus')
                 ->onDelete('restrict') 
                 ->onUpdate('restrict');
 
-            $table->foreign('user_id', 'fk_book_user_users')->references('id')->on('users')
+            $table->foreign('role_id', 'fk_menu_role_roles')->references('id')->on('roles')
                 ->onDelete('restrict') 
                 ->onUpdate('restrict');
 
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_spanish_ci';
+
+            $table->timestamps();
         });
     }
 
@@ -46,6 +41,6 @@ class CreateBookUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book_user');
+        Schema::dropIfExists('menu_role');
     }
 }

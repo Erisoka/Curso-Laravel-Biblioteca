@@ -4,9 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Boxed Layout</title>
+  <title>@yield('titulo', 'Biblioteca') | Erisoka Dev.</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  @yield('styles')
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{ asset("assets/$theme/plugins/fontawesome-free/css/all.min.css") }}">
@@ -33,40 +35,9 @@
     <div class="content-wrapper">
       <!-- Main content -->
       <section class="content">
-        <div class="container-fluid">
-
-          <div class="row">
-            <div class="col-12 mt-3">
-              <div class="callout callout-info">
-                <h5>I am an info callout!</h5>
-                <p>Follow the steps to continue to payment.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12">
-              <!-- Default box -->
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Title</h3>
-
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
-                      title="Collapse">
-                      <i class="fas fa-minus"></i></button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  Start creating your amazing application!
-                </div>
-                <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
-            </div>
-          </div>
-
-        </div>
+        
+        @yield('content')
+        
       </section>
       <!-- /.content -->
     </div>
@@ -86,6 +57,8 @@
   <script src="{{ asset("assets/$theme/dist/js/adminlte.min.js") }}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{ asset("assets/$theme/dist/js/demo.js") }}"></script>
+
+  @yield('scripts')
 
 </body>
 
