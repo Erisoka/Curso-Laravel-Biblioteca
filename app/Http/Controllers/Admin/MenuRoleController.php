@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ValidacionGuardarMenu;
-use App\Models\Admin\Menu;
 use Illuminate\Http\Request;
 
-class MenuController extends Controller
+class MenuRoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::getMenu();
-        //dd($menus);
-        return view('admin.menu.index', compact('menus'));
+        //
     }
 
     /**
@@ -28,7 +24,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('admin.menu.crear');
+        //
     }
 
     /**
@@ -37,12 +33,9 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    //public function store(Request $request) //Metodo Normal Store usando Request
-    public function store(ValidacionGuardarMenu $request) // Metodo usando Validaciones Request
+    public function store(Request $request)
     {
-        //dd($request->all());
-        Menu::create($request->all()); //guarda todo sin validar
-        return redirect('admin/menu')->with('mensaje', 'Menú creado con exito!');
+        //
     }
 
     /**
@@ -88,16 +81,5 @@ class MenuController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function guardarOrden(Request $request)
-    {
-        if ($request->ajax()) {
-            $menu = new Menu;
-            $menu->guardarOrden($request->menu);
-            return response()->json(['respuesta' => 'ok']);
-        } else {
-            abort(404);
-        }
     }
 }

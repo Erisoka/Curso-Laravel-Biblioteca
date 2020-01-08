@@ -1,7 +1,7 @@
 @extends("theme.$theme.layout")
 
 @section('titulo')
-Sistema Menús
+Sistema Roles
 @endsection
 
 @section("scripts")
@@ -15,44 +15,41 @@ Sistema Menús
         <div class="col-lg-12">
             @include('includes.form-warning')
             @include('includes.mensaje')
-            <div class="card card-outline card-success mt-3">
+            <div class="card card-outline card-warning mt-3">
                 <div class="card-header">
-                    <h3 class="card-title">Crear Menús</h3>
+                    <h3 class="card-title">Editar Role</h3>
                     <div class="card-tools pull-right">
-                        <a href="{{route('menu')}}" class="btn btn-primary btn-sm"><i class="fas fa-reply"></i> &nbsp;
-                            Listar Menús</a>
+                        <a href="{{route('rol')}}" class="btn btn-primary btn-sm"><i class="fas fa-reply"></i> &nbsp;
+                            Listar Roles</a>
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
                             title="Collapse">
                             <i class="fas fa-minus"></i></button>
                     </div>
                 </div>
                 <!-- /.card-header -->
-
                 <div class="card-body p-0">
+                    
                     <!-- form start -->
-                    <form action="{{ route('guardar_menu') }}" id="form-general" class="form-horizontal" method="POST"
+                    <form action="{{ route('actualizar_rol', ['id' => $rol->id])}}" id="form-general" class="form-horizontal" method="POST"
                         autocomplete="off">
-                        @csrf
+                        @csrf @method("put")
                         <div class="card-body">
-                            @include('admin.menu.form')
+                            @include('admin.rol.form')
                         </div>
 
                         <div class="card-footer">
                             <div class="row">
-                                <div class="col-lg-3"></div>
-                                <div class="col-lg-6">
-                                    @include('includes.boton-form-crear')
+                                <div class="col-lg-12 text-center">
+                                    @include('includes.boton-form-editar')
                                 </div>
                             </div>
                         </div>
                         <!-- /.card-footer -->
 
                     </form>
+
                 </div>
                 <!-- /.card-body -->
-
-                
-
 
             </div>
             <!-- /.card -->

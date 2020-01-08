@@ -17,6 +17,11 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset("assets/$theme/dist/css/adminlte.min.css") }}">
 
+  <!-- SweetAlert2 style -->
+  <link rel="stylesheet" href="{{ asset("assets/$theme/plugins/sweetalert2/sweetalert2.min.css") }}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
   <!-- Custom style -->
   <link rel="stylesheet" href="{{ asset("assets/css/custom.css") }}">
 
@@ -66,9 +71,20 @@
   <script src="{{ asset("assets/js/jquery-validation/jquery.validate.min.js") }}"></script>
   <script src="{{ asset("assets/js/jquery-validation/localization/messages_es.min.js") }}"></script>
 
-  <!-- Mis Js -->
+   <!-- CDN SweetAlert2 -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+   <script src="{{ asset("assets/$theme/plugins/sweetalert2/sweetalert2.all.min.js") }}"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+  <!-- Scripts Plugins -->
+  @yield('scriptsPlugins')
+
+  <!-- Mis Js para todas las vistas-->
+  <script src="{{ asset("assets/js/scripts.js") }}"></script>
   <script src="{{ asset("assets/js/funciones.js") }}"></script>
 
+  <!-- Scripts Propios desde una Vista-->
   @yield('scripts')
 
 </body>

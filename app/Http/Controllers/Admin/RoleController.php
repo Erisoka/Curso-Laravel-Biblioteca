@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ValidacionGuardarMenu;
-use App\Models\Admin\Menu;
+use App\Http\Requests\ValidacionGuardarRole;
+use App\Models\Admin\Role;
 use Illuminate\Http\Request;
 
-class MenuController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::getMenu();
-        //dd($menus);
-        return view('admin.menu.index', compact('menus'));
+        $roles = Role::orderBy('id')->get();
+        return view('admin.rol.index', compact('roles'));
     }
 
     /**
@@ -28,7 +27,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('admin.menu.crear');
+        return view('admin.rol.crear');
     }
 
     /**
@@ -37,12 +36,11 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    //public function store(Request $request) //Metodo Normal Store usando Request
-    public function store(ValidacionGuardarMenu $request) // Metodo usando Validaciones Request
+    public function store(ValidacionGuardarRole $request)
     {
         //dd($request->all());
-        Menu::create($request->all()); //guarda todo sin validar
-        return redirect('admin/menu')->with('mensaje', 'Menú creado con exito!');
+        Role::create($request->all()); //guarda todo sin validar
+        return redirect('admin/rol')->with('mensaje', 'Rol creado con exito!');
     }
 
     /**
@@ -63,8 +61,10 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {        
+        //dd('Prueba Editar Rol');
+        $rol = Role::findOrFail($id);
+        return view('admin.rol.editar', compact('rol'));
     }
 
     /**
@@ -74,9 +74,10 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ValidacionGuardarRole $request, $id)
     {
-        //
+        Role::findOrFail($id)->update($request->all());
+        return redirect('admin/rol')->with('mensaje', 'Rol actualizado con exito!');
     }
 
     /**
@@ -85,17 +86,15 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
-    }
-
-    public function guardarOrden(Request $request)
-    {
+        //dd($request->ajax());
         if ($request->ajax()) {
-            $menu = new Menu;
-            $menu->guardarOrden($request->menu);
-            return response()->json(['respuesta' => 'ok']);
+            if (Role::destroy($id)) {
+                return response()->json(['mensaje' => 'ok']);
+            } else {
+                return response()->json(['mensaje' => 'ng']);
+            }
         } else {
             abort(404);
         }
