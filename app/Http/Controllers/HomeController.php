@@ -13,6 +13,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        //dd(session()->all());
+        //dd(auth()->user()->nombre);
+        //dd(auth()->user());
         return view('home');
     }
 

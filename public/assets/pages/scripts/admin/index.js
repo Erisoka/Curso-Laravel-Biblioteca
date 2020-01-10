@@ -2,19 +2,34 @@ $(document).ready(function () {
     $("#tabla-data").on('submit', '.form-eliminar', function () {  
         event.preventDefault();
         const form = $(this);
-        swal.fire({
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+          });
+        swalWithBootstrapButtons.fire({
             title: '¿ Está seguro que desea eliminar el registro ?',
             text: "Esta acción no se puede deshacer!",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
             confirmButtonText: 'Si, borralo!',
-            cancelButtonText: 'Cancelar'
-        }).then((value) => {
-            if (value) {
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
                 ajaxRequest(form);
-            }
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+              ) {
+                swalWithBootstrapButtons.fire(
+                  'Acción Cancelada',
+                  'El registro no ha sido borrado :)',
+                  'error'
+                )
+              }
         });
     });
 

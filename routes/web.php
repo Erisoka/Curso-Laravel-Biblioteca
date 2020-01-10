@@ -11,12 +11,20 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('inicio');
+
+Route::get('seguridad/login', 'Seguridad\LoginController@index')->name('login');
+Route::post('seguridad/login', 'Seguridad\LoginController@login')->name('login_post');
+Route::get('seguridad/logout', 'Seguridad\LoginController@logout')->name('logout');
+Route::post('ajax-sesion', 'AjaxController@setSession')->name('ajax')->middleware('auth');
 
 //Ruta normal usando controlador
 //Route::get('admin/permiso', 'Admin\PermissionController@index')->name('permiso');
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'superadmin']], function () {
+
+    Route::get('', 'AdminController@index'); // ruta /admin
+
     Route::get('permiso', 'PermissionController@index')->name('permiso');
     Route::get('permiso/crear', 'PermissionController@create')->name('crear_permiso');
     
@@ -33,4 +41,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
      Route::get('rol/{id}/editar', 'RoleController@edit')->name('editar_rol');
      Route::put('rol/{id}', 'RoleController@update')->name('actualizar_rol');
      Route::delete('rol/{id}', 'RoleController@destroy')->name('eliminar_rol');
+
+    /*RUTAS MENU_ROL*/
+    Route::get('menu-rol', 'MenuRoleController@index')->name('menu_rol');
+    Route::post('menu-rol', 'MenuRoleController@guardar')->name('guardar_menu_rol');
 });

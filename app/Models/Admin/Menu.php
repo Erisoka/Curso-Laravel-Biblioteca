@@ -13,6 +13,10 @@ class Menu extends Model
     protected $guarded = ['id']; //campos no editables por laravel
     //public $timestamps = false; //establece que no tiene timestamps
 
+    public function roles(){
+        return $this->belongsToMany(Role::class, 'menu_role');
+    }
+
     public function getHijos($padres, $line)
     {
         $children = [];

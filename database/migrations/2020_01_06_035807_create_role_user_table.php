@@ -17,7 +17,7 @@ class CreateRoleUserTable extends Migration
             $table->bigIncrements('id');
 
             $table->bigInteger('role_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('usuario_id')->unsigned();
             $table->boolean('estado');
 
             $table->timestamps();
@@ -26,7 +26,7 @@ class CreateRoleUserTable extends Migration
                 ->onDelete('restrict') 
                 ->onUpdate('restrict');
 
-            $table->foreign('user_id', 'fk_role_user_users')->references('id')->on('users')
+            $table->foreign('usuario_id', 'fk_role_user_users')->references('id')->on('users')
                 ->onDelete('restrict') 
                 ->onUpdate('restrict');
 
