@@ -24,7 +24,7 @@ class ValidacionGuardarRole extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required|max:50|unique:roles,nombre,' . $this->route('id'), 
+            'nombre' => 'required|max:50|unique:rol,nombre,' . $this->route('id'), 
         ];
     }
 }

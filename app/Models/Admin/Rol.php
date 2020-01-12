@@ -5,9 +5,9 @@ namespace App\Models\Admin;
 use App\Models\Seguridad\Usuario;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Rol extends Model
 {
-    protected $table = 'roles';
+    protected $table = 'rol';
     protected $fillable = [
         'nombre', 
     ];
@@ -15,6 +15,6 @@ class Role extends Model
 
     public function users()
     {
-        return $this->belongsToMany(Usuario::class, 'role_user');
+        return $this->belongsToMany(Usuario::class, 'rol_user');
     }
 }

@@ -4,9 +4,9 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MenuRole extends Model
+class MenuRol extends Model
 {
-    protected $table = "menu_role";
+    protected $table = "menu_rol";
     public $timestamps = false;
 
     

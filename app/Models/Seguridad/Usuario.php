@@ -2,7 +2,7 @@
 
 namespace App\Models\Seguridad;
 
-use App\Models\Admin\Role;
+use App\Models\Admin\Rol;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Session;
@@ -17,7 +17,7 @@ class Usuario extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'role_user');
+        return $this->belongsToMany(Rol::class, 'rol_user');
     }
 
     public function setSession($roles) //setSession($roles) 

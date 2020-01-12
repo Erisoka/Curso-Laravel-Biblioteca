@@ -29,7 +29,9 @@ class ValidarCampoUrl implements Rule
         //si la url no es igual a #, verificar que no exista otra url igual en la BD
         if ($value != '#') {
             //busca en el campo url (attribute), la url enviada en el value
-            $menu = Menu::where($attribute, $value)->get(); 
+            //$menu = Menu::where($attribute, $value)->get(); 
+            // modificacion, para poder editar la url y excluya la propia url que se quiere modificar
+            $menu = Menu::where($attribute, $value)->where('id', '!=', request()->route('id'))->get();
             return $menu->isEmpty(); //true (vacia) no existe esa url, puede hacer el menu con esa url
             // false (al menos una) si existe esa url en la BD, no puede hacer el menu con esa url
         }

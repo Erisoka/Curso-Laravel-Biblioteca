@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ValidacionGuardarRole;
-use App\Models\Admin\Role;
+use App\Models\Admin\Rol;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -16,7 +16,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::orderBy('id')->get();
+        $roles = Rol::orderBy('id')->get();
         return view('admin.rol.index', compact('roles'));
     }
 
@@ -39,7 +39,7 @@ class RoleController extends Controller
     public function store(ValidacionGuardarRole $request)
     {
         //dd($request->all());
-        Role::create($request->all()); //guarda todo sin validar
+        Rol::create($request->all()); //guarda todo sin validar
         return redirect('admin/rol')->with('mensaje', 'Rol creado con exito!');
     }
 
@@ -63,7 +63,7 @@ class RoleController extends Controller
     public function edit($id)
     {        
         //dd('Prueba Editar Rol');
-        $rol = Role::findOrFail($id);
+        $rol = Rol::findOrFail($id);
         return view('admin.rol.editar', compact('rol'));
     }
 
@@ -76,7 +76,7 @@ class RoleController extends Controller
      */
     public function update(ValidacionGuardarRole $request, $id)
     {
-        Role::findOrFail($id)->update($request->all());
+        Rol::findOrFail($id)->update($request->all());
         return redirect('admin/rol')->with('mensaje', 'Rol actualizado con exito!');
     }
 
@@ -90,7 +90,7 @@ class RoleController extends Controller
     {
         //dd($request->ajax());
         if ($request->ajax()) {
-            if (Role::destroy($id)) {
+            if (Rol::destroy($id)) {
                 return response()->json(['mensaje' => 'ok']);
             } else {
                 return response()->json(['mensaje' => 'ng']);

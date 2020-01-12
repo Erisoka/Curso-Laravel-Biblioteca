@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenuRoleTable extends Migration
+class CreateRolUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,25 @@ class CreateMenuRoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_role', function (Blueprint $table) {
+        Schema::create('rol_user', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->bigInteger('menu_id')->unsigned();
-            $table->bigInteger('role_id')->unsigned();
+            $table->bigInteger('rol_id')->unsigned();
+            $table->bigInteger('usuario_id')->unsigned();
+            $table->boolean('estado');
 
-            $table->foreign('menu_id', 'fk_menu_role_menus')->references('id')->on('menus')
+            $table->timestamps();
+
+            $table->foreign('rol_id', 'fk_rol_user_roles')->references('id')->on('rol')
                 ->onDelete('restrict') 
                 ->onUpdate('restrict');
 
-            $table->foreign('role_id', 'fk_menu_role_roles')->references('id')->on('roles')
+            $table->foreign('usuario_id', 'fk_rol_user_users')->references('id')->on('users')
                 ->onDelete('restrict') 
                 ->onUpdate('restrict');
 
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_spanish_ci';
-
-            $table->timestamps();
         });
     }
 
@@ -41,6 +42,6 @@ class CreateMenuRoleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_role');
+        Schema::dropIfExists('rol_user');
     }
 }

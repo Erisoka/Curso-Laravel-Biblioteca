@@ -32,6 +32,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::get('menu', 'MenuController@index')->name('menu');
     Route::get('menu/crear', 'MenuController@create')->name('crear_menu');
     Route::post('menu', 'MenuController@store')->name('guardar_menu');
+    Route::get('menu/{id}/editar', 'MenuController@edit')->name('editar_menu');
+    Route::put('menu/{id}', 'MenuController@update')->name('actualizar_menu');
+    Route::get('menu/{id}/eliminar', 'MenuController@destroy')->name('eliminar_menu');
     Route::post('menu/guardar-orden', 'MenuController@guardarOrden')->name('guardar_orden');
 
      /*RUTAS ROL*/

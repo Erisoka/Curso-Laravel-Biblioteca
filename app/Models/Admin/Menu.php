@@ -13,8 +13,8 @@ class Menu extends Model
     protected $guarded = ['id']; //campos no editables por laravel
     //public $timestamps = false; //establece que no tiene timestamps
 
-    public function roles(){
-        return $this->belongsToMany(Role::class, 'menu_role');
+    public function rol(){
+        return $this->belongsToMany(Rol::class, 'menu_rol');
     }
 
     public function getHijos($padres, $line)
@@ -31,7 +31,7 @@ class Menu extends Model
     public function getPadres($front)
     {
         if ($front) {
-            return $this->whereHas('roles', function ($query) {
+            return $this->whereHas('rol', function ($query) {
                 $query->where('rol_id', session()->get('rol_id'))->orderby('menu_id');
             })->orderby('menu_id')
                 ->orderby('orden')

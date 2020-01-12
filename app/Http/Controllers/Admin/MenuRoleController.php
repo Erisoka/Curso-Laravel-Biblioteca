@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Menu;
-use App\Models\Admin\Role;
+use App\Models\Admin\Rol;
 use Illuminate\Http\Request;
 
 class MenuRoleController extends Controller
@@ -16,11 +16,14 @@ class MenuRoleController extends Controller
      */
     public function index()
     {
-        $rols = Role::orderBy('id')->pluck('nombre', 'id')->toArray();
+        $rols = Rol::orderBy('id')->pluck('nombre', 'id')->toArray();
         $menus = Menu::getMenu();
-        $menusRols = Menu::with('roles')->get()->pluck('roles', 'id')->toArray();
+        //$menusRols = Menu::with('rol')->get()->pluck('roles', 'id')->toArray();
+        $menusRols = Menu::with('rol')->get()->pluck('rol', 'id')->toArray();
         return view('admin.menu-rol.index', compact('rols', 'menus', 'menusRols'));
         //dd($rols);
+        //dd($menus);
+        //dd($menusRols);
     }
 
     /**
@@ -44,13 +47,13 @@ class MenuRoleController extends Controller
         if ($request->ajax()) {
             $menus = new Menu();
             if ($request->input('estado') == 1) {
-                $menus->find($request->input('menu_id'))->roles()->attach($request->input('rol_id'));
+                $menus->find($request->input('menu_id'))->rol()->attach($request->input('rol_id'));
                 return response()->json([
                     'respuesta' => 'El rol se asigno correctamente',
                     'tipo' => 1
                 ]);
             } else {
-                $menus->find($request->input('menu_id'))->roles()->detach($request->input('rol_id'));
+                $menus->find($request->input('menu_id'))->rol()->detach($request->input('rol_id'));
                 return response()->json([
                     'respuesta' => 'El rol se elimino correctamente',
                     'tipo' => 0
