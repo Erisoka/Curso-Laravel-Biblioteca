@@ -13,7 +13,7 @@
 <div class="form-group row">
     <label for="icono" class="col-lg-3 col-form-label">Icono</label>
     <div class="col-lg-8">
-        <input type="text" name="icono" class="form-control" id="icono" alue="{{old('icono', $data->icono ?? '')}}"/>
+        <input type="text" name="icono" class="form-control" id="icono" value="{{old('icono', $data->icono ?? '')}}"/>
     </div>
     <div class="col-lg-1">
         <span id="mostrar-icono" class="fa fa-fw {{ old('icono') }}"></span>

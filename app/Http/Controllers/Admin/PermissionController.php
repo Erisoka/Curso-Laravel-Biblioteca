@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Permission;
+use App\Http\Requests\ValidarPermiso;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
@@ -37,9 +38,10 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidarPermiso $request) // tienes que hacer ValidarPermiso 
     {
-        //
+        Permission::create($request->all());
+        return redirect('admin/permiso')->with('mensaje', 'Permiso creado con exito');
     }
 
     /**
@@ -61,7 +63,8 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permiso = Permission::findOrFail($id);
+        return view('admin.permiso.editar', compact('permiso'));
     }
 
     /**
@@ -71,9 +74,10 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ValidarPermiso $request, $id)
     {
-        //
+        Permission::findOrFail($id)->update($request->all());
+        return redirect('admin/permiso')->with('mensaje', 'Permiso actualizado con exito');
     }
 
     /**
@@ -82,8 +86,17 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        //dd('Opcion Eliminar');
+        if ($request->ajax()) {
+            if (Permission::destroy($id)) {
+                return response()->json(['mensaje' => 'ok']);
+            } else {
+                return response()->json(['mensaje' => 'ng']);
+            }
+        } else {
+            abort(404);
+        }
     }
 }

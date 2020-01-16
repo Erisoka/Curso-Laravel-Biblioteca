@@ -17,7 +17,7 @@ Sistema Menús
             @include('includes.mensaje')
             <div class="card card-outline card-success mt-3">
                 <div class="card-header">
-                    <h3 class="card-title">Editar Menús</h3>
+                    <h3 class="card-title">Editar Menú {{$data->nombre}}</h3>
                     <div class="card-tools pull-right">
                         <a href="{{route('menu')}}" class="btn btn-primary btn-sm"><i class="fas fa-reply"></i> &nbsp;
                             Listar Menús</a>

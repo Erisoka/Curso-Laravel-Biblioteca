@@ -16,6 +16,7 @@ $(document).ready(function () {
         html: true,
         container: 'body'
     });
+    // MUESTRA EL MENU ACTIVO
     //$('ul.sidebar-menu').find('li.active').parents('li').addClass('active');
     $('ul.nav-treeview').find('a.active').parents('li').addClass('menu-open');
     // Trabajo con Ventana de Roles.

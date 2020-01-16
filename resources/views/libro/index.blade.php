@@ -1,11 +1,11 @@
 @extends("theme.$theme.layout")
 
 @section('titulo')
-Sistema Permisos
+Sistema Libros
 @endsection
 
 @section("scripts")
-<script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script>
+<script src="{{asset("assets/pages/scripts/libro/index.js")}}" type="text/javascript"></script>
 @endsection
 
 @section('content')
@@ -16,9 +16,9 @@ Sistema Permisos
                 @include('includes.mensaje')
                 <div class="card card-primary card-outline mt-3">
                     <div class="card-header">
-                        <h3 class="card-title">Permisos</h3>
-                        <div class="card-tools">
-                            <a href="{{route('crear_permiso')}}" class="btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> &nbsp; Crear Permiso</a>
+                        <h3 class="card-title">Libros</h3>
+                        <div class="card-tools pull-right">
+                            <a href="{{route('crear_libro')}}" class="btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> &nbsp; Crear Libro</a>
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                               <i class="fas fa-minus"></i></button>
                           </div>
@@ -29,25 +29,23 @@ Sistema Permisos
                             <thead>
                                 <tr>
                                     <th class="width70">Id</th>
-                                    <th>Nombre</th>
-                                    <th>Slug</th>
+                                    <th>Titulo</th>
                                     <th class="width90"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($permisos as $permiso)
+                                @foreach ($datas as $data)
                                     <tr>
-                                        <td>{{ $permiso->id }}</td>
-                                        <td>{{ $permiso->nombre }}</td>
-                                        <td>{{ $permiso->slug }}</td>
+                                        <td class="width70">{{ $data->id }}</td>
+                                        <td>{{ $data->titulo }}</td>
                                         <td>
-                                            <a href="{{route('editar_permiso', ['id' => $permiso->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
-                                                <i class="fas fa-edit"></i>
+                                            <a href="{{route('editar_libro', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
+                                                <i class="fas fa-pencil-alt"></i>
                                             </a>
-                                            <form action="{{route('eliminar_permiso', ['id' => $permiso->id])}}" class="d-inline form-eliminar" method="POST">
+                                            <form action="{{route('eliminar_libro', ['id' => $data->id])}}" class="d-inline form-eliminar" method="POST">
                                                 @csrf @method("delete")
-                                                <button type="submit" class="btn-accion-tabla eliminar tooltipsC">
-                                                    <i class="fas fa-times-circle text-danger" title="Eliminar este registro"></i>
+                                                <button type="submit" class="btn-accion-tabla eliminar tooltipsC" title="Eliminar este registro">
+                                                    <i class="fa fa-fw fa-trash text-danger"></i>
                                                 </button>
                                             </form>
                                         </td>

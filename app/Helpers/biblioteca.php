@@ -27,16 +27,25 @@ if (!function_exists('canUser')) {
     {
         if (session()->get('rol_nombre') == 'administrador') {
             return true;
+            //return redirect()->action('HomeController@index')->with('mensaje', 'Eres Admin, tienes permiso para entrar al modulo libro')->send();
         } else {
             $rolId = session()->get('rol_id');
-            $permisos = cache()->tags('Permiso')->rememberForever("Permiso.rolid.$rolId", function () {
-                return Permission::whereHas('roles', function ($query) {
+            $permisos = cache()->tags('permiso')->rememberForever("permiso.rolid.$rolId", function () {
+                return Permission::whereHas('rol', function ($query) {
                     $query->where('rol_id', session()->get('rol_id'));
                 })->get()->pluck('slug')->toArray();
             });
+            //dd($permisos);
+            /* 
+            $permisos = Permission::whereHas('rol', function ($query) {
+                $query->where('rol_id', session()->get('rol_id'));
+                })->get()->pluck('slug')->toArray();
+
+            dd($permisos);
+            */
             if (!in_array($permiso, $permisos)) {
                 if ($redirect) {
-                    if (!request()->ajax())
+                    if (!request()->ajax())                        
                         return redirect()->route('inicio')->with('mensaje', 'No tienes permisos para entrar en este modulo')->send();
                     abort(403, 'No tiene permiso');
                 } else {

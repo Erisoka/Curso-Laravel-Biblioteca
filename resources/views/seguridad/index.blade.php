@@ -72,14 +72,14 @@
                         </div>
                     </div>
                     <div class="row">
-
+                         
                         @if ((Route::has('password.request')))
                             <div class="col-4">
                                 <button type="submit" class="btn btn-primary btn-block">Login</button>
                             </div>
-                            <div class="col-6">
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
+                            <div class="col-8">
+                                <a class="btn btn-danger btn-block" href="{{ route('password.request') }}">
+                                    {{ __('Olvidaste Contraseña?') }}
                                 </a>
                             </div>
                         @else

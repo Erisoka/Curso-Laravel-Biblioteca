@@ -1,9 +1,10 @@
 @extends("theme.$theme.layout")
 
 @section('titulo')
-Sistema Permisos
+Sistema Usuarios
 @endsection
 
+<!-- admin/index.js se encarga de mostrar el sweet alert de eliminacion de un registro con id="tabla-data" -->
 @section("scripts")
 <script src="{{asset("assets/pages/scripts/admin/index.js")}}" type="text/javascript"></script>
 @endsection
@@ -16,9 +17,9 @@ Sistema Permisos
                 @include('includes.mensaje')
                 <div class="card card-primary card-outline mt-3">
                     <div class="card-header">
-                        <h3 class="card-title">Permisos</h3>
+                        <h3 class="card-title">Usuarios</h3>
                         <div class="card-tools">
-                            <a href="{{route('crear_permiso')}}" class="btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> &nbsp; Crear Permiso</a>
+                            <a href="{{route('crear_usuario')}}" class="btn btn-success btn-sm"><i class="fas fa-plus-circle"></i> &nbsp; Crear Usuario</a>
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                               <i class="fas fa-minus"></i></button>
                           </div>
@@ -29,22 +30,30 @@ Sistema Permisos
                             <thead>
                                 <tr>
                                     <th class="width70">Id</th>
+                                    <th>Usuario</th>
                                     <th>Nombre</th>
-                                    <th>Slug</th>
+                                    <th>Email</th>
+                                    <th>Roles</th>
                                     <th class="width90"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($permisos as $permiso)
+                                @foreach ($usuarios as $usuario)
                                     <tr>
-                                        <td>{{ $permiso->id }}</td>
-                                        <td>{{ $permiso->nombre }}</td>
-                                        <td>{{ $permiso->slug }}</td>
+                                        <td>{{ $usuario->id }}</td>
+                                        <td>{{ $usuario->usuario }}</td>
+                                        <td>{{ $usuario->nombre }}</td>
+                                        <td>{{ $usuario->email }}</td>
                                         <td>
-                                            <a href="{{route('editar_permiso', ['id' => $permiso->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
+                                            @foreach ($usuario->roles as $rol)
+                                                {{$loop->last ? $rol->nombre : $rol->nombre . ', '}}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <a href="{{route('editar_usuario', ['id' => $usuario->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{route('eliminar_permiso', ['id' => $permiso->id])}}" class="d-inline form-eliminar" method="POST">
+                                            <form action="{{route('eliminar_usuario', ['id' => $usuario->id])}}" class="d-inline form-eliminar" method="POST">
                                                 @csrf @method("delete")
                                                 <button type="submit" class="btn-accion-tabla eliminar tooltipsC">
                                                     <i class="fas fa-times-circle text-danger" title="Eliminar este registro"></i>

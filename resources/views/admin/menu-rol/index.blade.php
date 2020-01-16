@@ -18,8 +18,10 @@ Sistema Menú - Roles
                 <div class="card-header">
                     <h3 class="card-title">Menú - Roles</h3>
                     <div class="card-tools pull-right">
+                        <a href="{{route('crear_menu')}}" class="btn btn-success btn-sm pull-right">
+                            <i class="fas fa-plus-circle"></i> &nbsp;Crear menú</a>
                         <a href="{{route('crear_rol')}}" class="btn btn-success btn-sm"><i
-                                class="fas fa-plus-circle"></i> &nbsp; Crear rol</a>
+                                class="fas fa-plus-circle"></i> &nbsp;Crear rol</a>
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
                             title="Collapse">
                             <i class="fas fa-minus"></i></button>
