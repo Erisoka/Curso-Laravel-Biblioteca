@@ -1,6 +1,7 @@
 <?php
 
-use Carbon\Carbon;
+use App\Models\Admin\Rol;
+//use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class RolSeeder extends Seeder
@@ -19,10 +20,15 @@ class RolSeeder extends Seeder
         ];
 
         foreach($roles as $key => $role){
+            Rol::create([
+                'nombre' => $role
+            ]);
+            /*
             DB::table('rol')->insert([
                 'nombre' => $role, 
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
+            */
         }
     }
 }

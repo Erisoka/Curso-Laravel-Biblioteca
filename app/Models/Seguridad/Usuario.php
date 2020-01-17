@@ -23,6 +23,7 @@ class Usuario extends Authenticatable
 
     public function setSession($roles) //setSession($roles) 
     {
+        /*
         if (count($roles) == 1) {
             Session::put(
                 [
@@ -33,8 +34,8 @@ class Usuario extends Authenticatable
                     'nombre_usuario' => $this->nombre
                 ]
             );
-        } 
-        /*
+        } */
+        
         Session::put([
             'usuario' => $this->usuario,
             'usuario_id' => $this->id,
@@ -50,7 +51,7 @@ class Usuario extends Authenticatable
         } else {
             Session::put('roles', $roles);
         }
-        */
+        
     }
 
     public function setPasswordAttribute($pass)

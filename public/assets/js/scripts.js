@@ -19,12 +19,14 @@ $(document).ready(function () {
     // MUESTRA EL MENU ACTIVO
     //$('ul.sidebar-menu').find('li.active').parents('li').addClass('active');
     $('ul.nav-treeview').find('a.active').parents('li').addClass('menu-open');
+    
     // Trabajo con Ventana de Roles.
-    const modal = $('#modal-seleccionar-rol');
+    // muestra un modal en el layout si el usuario tiene asigando mas de un rol
+    const modal = $('#modal-seleccionar-rol'); // llama a la ventana modal del layout
     if (modal.length && modal.data('rol-set') == 'NO') {
-        modal.modal('show');
+        modal.modal('show'); // el modal persiste hasta que escoja un rol
     }
-
+    
     $('.asignar-rol').on('click', function (event) {
         event.preventDefault();
         const data = {
@@ -32,9 +34,15 @@ $(document).ready(function () {
             rol_nombre: $(this).data('rolnombre'),
             _token: $('input[name=_token]').val()
         }
-        ajaxRequest(data, '/ajax-sesion', 'asignar-rol');
+        // con la url web /ajax-sesion enviada a la funcion ajaxRequest
+        // se invoca al metodo setSession de AjaxController,
+        // que inserta en la sesion la data (rol_id, rol_nombre)
+        ajaxRequest(data, '/ajax-sesion', 'asignar-rol'); // 
     });
 
+    // en el header, permite mostrar el modal para cambiar de rol
+    // al usuario logueado que tenga mas de 1 rol, y quiera cambiar de rol
+    // sin necesidad de hacer logout
     $('.cambiar-rol').on('click', function (event) {
         event.preventDefault();
         modal.modal('show');

@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -38,29 +41,47 @@
             <img src="{{ asset("assets/$theme/dist/img/user2-160x160.jpg") }}" class="img-circle elevation-2" alt="User Image">
 
             <p>
-              {{session()->get('nombre_usuario') ?? 'Invitado' }}
-              <small>Member since Nov. 2012</small>
+              {{session()->get('nombre_usuario', 'Inivitado')}} - {{session()->get('rol_nombre', 'Guest')}}
+              @auth
+                <small>Registrado desde {{Carbon::parse(auth()->user()->created_at)->year }}</small>
+              @endauth
             </p>
           </li>
           <!-- Menu Body -->
           <li class="user-body">
             <div class="row">
-              <div class="col-4 text-center">
-                <a href="#">Followers</a>
-              </div>
-              <div class="col-4 text-center">
-                <a href="#">Sales</a>
-              </div>
-              <div class="col-4 text-center">
-                <a href="#">Friends</a>
-              </div>
+              @if(session()->get("roles") && count(session()->get("roles")) > 1)
+                <div class="col-3"></div>
+                <div class="col-6 text-center">
+                    <a href="#" class="cambiar-rol">Cambiar Rol</a>
+                </div>
+              @else
+                <div class="col-12 text-center">
+                  Favor Haz Login!
+                </div>
+              @endif
             </div>
             <!-- /.row -->
           </li>
           <!-- Menu Footer-->
           <li class="user-footer">
-            <a href="{{route('login')}}" class="btn btn-default btn-flat">Login</a>
-            <a href="{{route('logout')}}" class="btn btn-default btn-flat float-right">Salir</a>
+            @guest
+              <div class="row">
+                <div class="col-6 text-center">
+                  <a href="{{route('login')}}" class="btn btn-default btn-flat">Login</a>
+                </div>
+                <div class="col-6 text-center">
+                  <a href="{{route('logout')}}" class="btn btn-default btn-flat">Salir</a>
+                </div>
+              </div>              
+            @endguest
+            @auth
+              <div class="row">
+                <div class="col-12 text-center">
+                  <a href="{{route('logout')}}" class="btn btn-default btn-flat">Salir</a>
+                </div>
+              </div>
+            @endauth
           </li>
         </ul>
       </li>
