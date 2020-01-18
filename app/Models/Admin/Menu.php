@@ -8,9 +8,9 @@ class Menu extends Model
 {
     protected $table = 'menus';
     protected $fillable = [
-        'nombre', 'url', 'icono'
+        'menu_id', 'nombre', 'url', 'orden', 'icono', 'created_at'
     ];
-    protected $guarded = ['id']; //campos no editables por laravel
+    //protected $guarded = ['id']; //campos no editables por laravel -
     //public $timestamps = false; //establece que no tiene timestamps
 
     public function rol(){

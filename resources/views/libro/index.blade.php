@@ -30,6 +30,7 @@ Sistema Libros
                                 <tr>
                                     <th class="width70">Id</th>
                                     <th>Titulo</th>
+                                    <th>Cantidad</th>
                                     <th class="width90"></th>
                                 </tr>
                             </thead>
@@ -38,6 +39,7 @@ Sistema Libros
                                     <tr>
                                         <td class="width70">{{ $data->id }}</td>
                                         <td>{{ $data->titulo }}</td>
+                                        <td>{{$data->cantidad}}</td>
                                         <td>
                                             <a href="{{route('editar_libro', ['id' => $data->id])}}" class="btn-accion-tabla tooltipsC" title="Editar este registro">
                                                 <i class="fas fa-pencil-alt"></i>
