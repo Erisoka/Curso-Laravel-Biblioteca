@@ -55,8 +55,8 @@ class LibroController extends Controller
         //dd($request->all());
         if ($foto = Libro::setCaratula($request->foto_up))
             $request->request->add(['foto' => $foto]);
-        //Libro::create($request->all());
-        //return redirect()->route('libro')->with('mensaje', 'El libro se creo correctamente');
+        Libro::create($request->all());
+        return redirect()->route('libro')->with('mensaje', 'El libro se creo correctamente');
     }
 
     /**
@@ -67,6 +67,17 @@ class LibroController extends Controller
      */
     public function ver(Request $request, Libro $libro)
     {
+        //dd($libro);
+        /*
+            para que el libro se pueda ver en el modal
+            se pregunta si el request es ajax, ya que la vista no esta
+            preparada para verse en una ventana de blade, sino en un modal invocado por ajax
+            ademas, como la imagen de la caratula no esta en la carpeta publica, sino en storage
+            hay que ejecutar previamente un comando artisan
+            php artisan storage:link
+            que creara un link simbolico de la carpeta public/storage a storage/app/public
+            que es donde realmente se estan almacenando las caratulas
+        */
         if ($request->ajax()) {
             return view('libro.ver', compact('libro'));
         } else {
